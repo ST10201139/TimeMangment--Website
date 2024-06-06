@@ -1,0 +1,101 @@
+﻿@model List<Final_POE_TimeMangement.Models.StudyHours>
+
+@{
+    ViewData["Title"] = "Bar Graph";
+}
+
+<h1>Bar Graph</h1>
+
+<div style="display: flex;background-color: floralwhite ; ">
+    <div style="width: 85%;">
+        <canvas id="barChart" width="600" height="400"></canvas>
+    </div>
+    <div id="legend" style="margin-left: 20px;"></div>
+</div>
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
+
+    <script>
+        var studyHoursData = @Html.Raw(Json.Serialize(Model));
+
+        var moduleNames = studyHoursData.map(function (studyHour) {
+            return studyHour.studyModule.moduleName;
+        });
+
+        var hoursSpent = studyHoursData.map(function (studyHour) {
+            return studyHour.hours;
+        });
+
+        var colors = [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+        ]; // Add more colors if needed
+
+
+        var backgroundColors = studyHoursData.map(function (studyHour, index) {
+            return colors[index % colors.length];
+        });
+
+        var ctx = document.getElementById('barChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: moduleNames,
+                datasets: [{
+                    label: 'Hours Spent',
+                    data: hoursSpent,
+                    backgroundColor: backgroundColors,
+                    borderColor: backgroundColors.map(color => color.replace('0.2', '1')),
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Hours Spent'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Module Names'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        // Generate legends with colors next to module names
+        var legend = document.createElement('div');
+        legend.style.display = 'flex';
+        legend.style.flexDirection = 'column';
+        moduleNames.forEach(function (moduleName, index) {
+            var item = document.createElement('div');
+            item.style.display = 'flex';
+            var colorBox = document.createElement('div');
+            colorBox.style.width = '20px';
+            colorBox.style.height = '10px';
+            colorBox.style.backgroundColor = backgroundColors[index];
+            var text = document.createTextNode(moduleName);
+            item.appendChild(colorBox);
+            item.appendChild(text);
+            legend.appendChild(item);
+        });
+
+        // Add the legend to the right side of the graph
+        document.getElementById('legend').appendChild(legend);
+    </script>
+
+    }

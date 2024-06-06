@@ -1,0 +1,38 @@
+﻿@model Final_POE_TimeMangement.Controllers.ModuleViewModel
+
+
+@{
+    ViewData["Title"] = "Remaining Study Hours";
+}
+
+<h1> Remaining Study Hours </h1>
+
+<p> Remaining study hours for @Model.Module.ModuleName:</p>
+<p> @Model.remainingStudyHours</p>
+
+<button id="showPopup">Show Popup</button>
+
+<div id="popup" style="display: none;"></div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script>
+
+        document.getElementById('showPopup').addEventListener('click', function () {
+            // Calculate remaining study hours and format it as needed
+            var remainingStudyHours = @Html.Raw(Model.remainingStudyHours);
+
+            // Show the SweetAlert
+            swal({
+                title: "Remaining Study Hours",
+                text: "Remaining study hours for @Model.Module.ModuleName: " + remainingStudyHours,
+                icon: "info"
+            });
+        });
+
+    </script>
+}

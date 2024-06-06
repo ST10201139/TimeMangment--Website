@@ -1,0 +1,68 @@
+﻿@model Final_POE_TimeMangement.Models.Modules
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Modules</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ModuleCode" class="control-label"></label>
+                <input asp-for="ModuleCode" class="form-control" />
+                <span asp-validation-for="ModuleCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModuleName" class="control-label"></label>
+                <input asp-for="ModuleName" class="form-control" />
+                <span asp-validation-for="ModuleName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModuleCredits" class="control-label"></label>
+                <input asp-for="ModuleCredits" class="form-control" />
+                <span asp-validation-for="ModuleCredits" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ModuleClassHours" class="control-label"></label>
+                <input asp-for="ModuleClassHours" class="form-control" />
+                <span asp-validation-for="ModuleClassHours" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Semester" class="control-label"></label>
+                <input asp-for="Semester" class="form-control" />
+                <span asp-validation-for="Semester" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SelfStudyHours" class="control-label"></label>
+                <input asp-for="SelfStudyHours" class="form-control" />
+                <span asp-validation-for="SelfStudyHours" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StudyHoursLeft" class="control-label"></label>
+                <input asp-for="StudyHoursLeft" class="form-control" />
+                <span asp-validation-for="StudyHoursLeft" class="text-danger"></span>
+            </div>
+        <div class="form-group">
+                <label asp-for="UserID" class="control-label" hidden></label>
+                <input asp-for="UserID" class="form-control"hidden value="0" />
+                <span asp-validation-for="UserID" class="text-danger"hidden></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

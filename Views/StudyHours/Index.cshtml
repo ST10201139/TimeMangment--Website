@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Final_POE_TimeMangement.Models.StudyHours>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<style>
+    th, td {
+        border: 1px solid #83EEFF;
+    }
+
+    .table-background {
+        background: linear-gradient(#ADD8E6,white);
+    }
+
+    h2 {
+        color: #ADD8E6
+    }
+
+    th {
+        color: #BC13FE
+    }
+
+</style>
+<h1>StudyHours</h1>
+
+
+<table class="table" style="border: 3px solid #83EEFF ; ">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StudyModule.ModuleId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StudyDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hours)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserID)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudyModule.ModuleId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudyDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hours)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserID)
+            </td>
+            <td>
+                <div class="btn-group" role="group" aria-label="Basic example">
+    <a asp-action="Edit" asp-route-id="@item.StudyHourId" class="btn btn-light">Edit</a>&nbsp;
+                        <a asp-action="Details" asp-route-id="@item.StudyHourId" class="btn btn-light">Details</a>&nbsp;
+                        <a asp-action="Delete" asp-route-id="@item.StudyHourId" class="btn btn-danger">Delete</a> &nbsp;
+</div>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
